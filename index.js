@@ -21,6 +21,16 @@ app.get("/getCards", (req, res) => {
   });
 });
 
+app.get("/s/:s", (req, res) => {
+  const { s } = req.params;
+  console.log("pesquisando:", s);
+  let SQL_Script = `select * from crudgames.games where crudgames.games.name like '%${s}%';`;
+  db.query(SQL_Script, [s], (err, result) => {
+    if (err) console.log(err);
+    else res.send(result);
+  });
+});
+
 app.post("/register", (req, res) => {
   const { name, cost, category } = req.body;
 
